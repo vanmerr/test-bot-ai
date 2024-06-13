@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Course Selector</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <div>
+            <label for="courses">Courses:</label>
+            <select id="courses">
+                <option value="">Select a course</option>
+            </select>
+        </div>
+        <div>
+            <label for="levels">Levels:</label>
+            <select id="levels" disabled>
+                <option value="">Select a level</option>
+            </select>
+        </div>
+        <div>
+            <label for="lessons">Lessons:</label>
+            <select id="lessons" disabled>
+                <option value="">Select a lesson</option>
+            </select>
+        </div>
+        <div id="createSection" style="display: none;">
+          <label for="create">Create:</label>
+          <select id="create">
+              <option value="">Select a create</option>
+              <option value="summary">Summary</option>
+              <option value="quiz">Quiz</option>
+          </select>
+          <button id="createBtn">Create</button>
+        </div>
+    </div>
+    <div id="createSummary" style="display: none;"></div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="./script.js"></script>
+</body>
+</html>

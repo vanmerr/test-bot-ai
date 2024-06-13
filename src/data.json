@@ -1,0 +1,125 @@
+{
+    "courses": [
+        {
+            "courseId": 1,
+            "courseName": "Bé Làm Game",
+            "courseDescription": "Bé Làm Game",
+            "courseTools": ["HTML", "CSS", "JavaScript"],
+            "courseLevels": [
+                {
+                    "levelId": 1,
+                    "levelName": "Beginner",
+                    "levelDescription": "Beginner Game",
+                    "levelTools": ["HTML", "CSS", "JavaScript"],
+                    "levelLessionss": [
+                        {
+                            "lessionId": 1,
+                            "lessionName": "Bài 1: NHÀ TÔI TRONG THẾ GIỚI ROBLOX",
+                            "lessionDescription": "'Nhà tôi trong thế giới Roblox' là mô hình ngôi nhà ảo được xây dựng từ trí tưởng tượng trong thế giới Roblox. Đây cũng là đích đến cuối cùng khi người chơi vượt qua các thử thách.",
+                            "lessionTools": ["HTML", "CSS", "JavaScript"],
+                            "lessionProject": {
+                                "projectName": "",
+                                "projectDescription": "",
+                                "projectRelatedConcepts": [],
+                                "projectTools": ["HTML", "CSS", "JavaScript"],
+                                "projectInstruction":""
+                            },
+                            "lessonConcepts":{
+                                "conceptComputerScience": [],
+                                "conceptScience": [],
+                                "conceptSkill": []
+                            },
+                            "lessonTechiques": [],
+                            "lessonMaterials": {
+                                "linkLessonPlan": "",
+                                "linkSlide": "",
+                                "linkSummary": "",
+                                "linkQuiz": "",
+                                "linkVideo": ""
+                            }
+                        },
+                        {
+                            "lessionId": 2,
+                            "lessionName": "Bài 2: VƯỢT CHƯỚNG NGẠI VẬT",
+                            "lessionDescription": "'Vượt chướng ngại vật' hay Obby Game là một dòng game phổ biến trong thế giới Roblox, nơi mà người chơi buộc phải sử dụng các kỹ năng di chuyển, vượt qua các chướng ngại vật để về đích.",
+                            "lessionTools": ["HTML", "CSS", "JavaScript"],
+                            "lessionProject": {
+                                "projectName": "",
+                                "projectDescription": "",
+                                "projectRelatedConcepts": [],
+                                "projectTools": ["HTML", "CSS", "JavaScript"],
+                                "projectInstruction":""
+                            },
+                            "lessonConcepts":{
+                                "conceptComputerScience": [],
+                                "conceptScience": [],
+                                "conceptSkill": []
+                            },
+                            "lessonTechiques": [],
+                            "lessonMaterials": {
+                                "linkLessonPlan": "",
+                                "linkSlide": "",
+                                "linkSummary": "",
+                                "linkQuiz": "",
+                                "linkVideo": ""
+                            }
+                        },
+                        {
+                            "lessionId": 3,
+                            "lessionName": "Bài 3: CHƯỚNG NGẠI VẬT ĐẶC BIỆT - P1",
+                            "lessionDescription": "'Nhà tôi trong thế giới Roblox' là mô hình ngôi nhà ảo được xây dựng từ trí tưởng tượng trong thế giới Roblox. Đây cũng là đích đến cuối cùng khi người chơi vượt qua các thử thách.",
+                            "lessionTools": ["HTML", "CSS", "JavaScript"],
+                            "lessionProject": {
+                                "projectName": "",
+                                "projectDescription": "",
+                                "projectRelatedConcepts": [],
+                                "projectTools": ["HTML", "CSS", "JavaScript"],
+                                "projectInstruction":""
+                            },
+                            "lessonConcepts":{
+                                "conceptComputerScience": [],
+                                "conceptScience": [],
+                                "conceptSkill": []
+                            },
+                            "lessonTechiques": [],
+                            "lessonMaterials": {
+                                "linkLessonPlan": "",
+                                "linkSlide": "",
+                                "linkSummary": "",
+                                "linkQuiz": "",
+                                "linkVideo": ""
+                            }
+                        },
+                        {
+                            "lessionId": 4,
+                            "lessionName": "Bài 4: NGÔN NGỮ LẬP TRÌNH TRONG GAME",
+                            "lessionDescription": "'Nhà tôi trong thế giới Roblox' là mô hình ngôi nhà ảo được xây dựng từ trí tưởng tượng trong thế giới Roblox. Đây cũng là đích đến cuối cùng khi người chơi vượt qua các thử thách.",
+                            "lessionTools": ["HTML", "CSS", "JavaScript"],
+                            "lessionProject": {
+                                "projectName": "",
+                                "projectDescription": "",
+                                "projectRelatedConcepts": [],
+                                "projectTools": ["HTML", "CSS", "JavaScript"],
+                                "projectInstruction":""
+                            },
+                            "lessonConcepts":{
+                                "conceptComputerScience": [],
+                                "conceptScience": [],
+                                "conceptSkill": []
+                            },
+                            "lessonTechiques": [],
+                            "lessonMaterials": {
+                                "linkLessonPlan": "",
+                                "linkSlide": "",
+                                "linkSummary": "",
+                                "linkQuiz": "",
+                                "linkVideo": ""
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+
+}
