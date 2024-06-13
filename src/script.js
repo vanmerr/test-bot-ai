@@ -42,17 +42,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     const createSummary = document.getElementById('createSummary');
 
 
-    const rawData = `Học phần: 1**
-    **Bài: 3**
-    **Tên dự án: CHƯỚNG NGẠI VẬT ĐẶC BIỆT - P1**
-    **Mô tả dự án:** "Chướng ngại vật đặc biệt - phần 1" là dạng chướng ngại vật tác động lực lên người chơi khiến người chơi khó điều khiển nhân vật và dễ rơi vào bẫy.
-    **Chủ đề:** Không gian 2 chiều, 3 chiều, 4 chiều
-    **Kiến thức trong bài:** 
-    - Hệ trục tọa độ Oxyz trong Roblox Studio
-    - Thuộc tính Velocity của vật thể
-    - Các hiệu ứng với vật thể / nhóm vật thể: Fire, Smoke, SpotLight, SurfaceLight, Sparkles, ParticleEmitter,...
-    `; // Truncated for brevity
-
     // Load courses on page load
     try {
         const courses = await services_frontend.getCourses();
@@ -133,49 +122,126 @@ document.addEventListener("DOMContentLoaded", async () => {
             createSummary.textContent = "Creating...........";
             const answer = await services_frontend.createSummary(user, inputs);
             console.log(answer);
-            createSummary.textContent = "";
-            const projects = parseData(answer.data.outputs.rs);
-            projects.forEach(project => {
-            const projectDiv = document.createElement('div');
-            projectDiv.className = 'project';
-            projectDiv.innerHTML = `
-                <h3>${project.title}</h3>
-                <p><strong>Học phần:</strong> ${project.course}</p>
-                <p><strong>Bài:</strong> ${project.lesson}</p>
-                <p><strong>Mô tả dự án:</strong> ${project.description}</p>
-                <p><strong>Chủ đề:</strong> ${project.topic}</p>
-                <p><strong>Kiến thức trong bài:</strong></p>
+            createLessonElements(answer.data.outputs.result);
+        };
+    
+    });
 
-            `;
-            createSummary.appendChild(projectDiv);
-        });
-    };
+});
 
-    function parseData(data) {
-        const projects = [];
-        const projectStrings = data.split('\n\n').filter(item => item.trim().length);
-        projectStrings.forEach(str => {
-            const project = {};
-            const lines = str.split('\n').filter(line => line.trim().length);
-            lines.forEach(line => {
-                const [key, value] = line.split(': ').map(item => item.trim());
-                if (key === 'Học phần') project.course = value;
-                else if (key === 'Bài') project.lesson = value;
-                else if (key === 'Tên dự án') project.title = value;
-                else if (key === 'Mô tả dự án') project.description = value;
-                else if (key === 'Chủ đề') project.topic = value;
-                else if (key === 'Kiến thức trong bài') {
-                    project.knowledge = lines.slice(lines.indexOf(line) + 1)
-                        .filter(item => item.startsWith('- '))
-                        .map(item => item.replace('- ', ''));
-                }
-            });
-            projects.push(project);
-        });
-        return projects;
+function createLessonElements(lessonData) {
+    const createSummary = document.getElementById('createSummary');
+    createSummary.innerHTML = ''; // Clear previous content
+
+    // Create elements for each part of the lesson
+    const title = document.createElement('h2');
+    title.textContent = `Học phần: ${lessonData["Học phần"]} - Bài: ${lessonData["Bài"]}`;
+    createSummary.appendChild(title);
+
+    const projectTitle = document.createElement('h3');
+    projectTitle.textContent = `Tên dự án: ${lessonData["Tên dự án"]}`;
+    createSummary.appendChild(projectTitle);
+
+    const description = document.createElement('p');
+    description.textContent = `Mô tả dự án: ${lessonData["Mô tả dự án"]}`;
+    createSummary.appendChild(description);
+
+    const topic = document.createElement('p');
+    topic.textContent = `Chủ đề: ${lessonData["Chủ đề"]}`;
+    createSummary.appendChild(topic);
+
+    const newKnowledgeTitle = document.createElement('h4');
+    newKnowledgeTitle.textContent = 'Kiến thức mới:';
+    createSummary.appendChild(newKnowledgeTitle);
+
+    const newKnowledgeList = document.createElement('ul');
+    lessonData["Kiến thức mới"].forEach(knowledge => {
+        const listItem = document.createElement('li');
+        listItem.textContent = knowledge;
+        newKnowledgeList.appendChild(listItem);
+    });
+    createSummary.appendChild(newKnowledgeList);
+
+    const steamTitle = document.createElement('h4');
+    steamTitle.textContent = 'Kiến thức theo STEAM:';
+    createSummary.appendChild(steamTitle);
+
+    const steamSections = lessonData["Kiến thức theo STEAM"];
+    for (const section in steamSections) {
+        const sectionTitle = document.createElement('h5');
+        sectionTitle.textContent = section;
+        createSummary.appendChild(sectionTitle);
+
+        const sectionList = document.createElement('ul');
+        for (const item in steamSections[section]) {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${item}: ${steamSections[section][item]}`;
+            sectionList.appendChild(listItem);
+        }
+        createSummary.appendChild(sectionList);
     }
 
-});
+    const stepsTitle = document.createElement('h4');
+    stepsTitle.textContent = 'Chi tiết các bước:';
+    createSummary.appendChild(stepsTitle);
 
+    const steps = lessonData["Chi tiết các bước"];
+    for (const step in steps) {
+        const stepContainer = document.createElement('div');
+        stepContainer.classList.add('step-container');
 
-});
+        const stepTitle = document.createElement('h5');
+        stepTitle.textContent = `${step}: ${steps[step]["Nội dung"]}`;
+        stepContainer.appendChild(stepTitle);
+
+        const stepDescription = document.createElement('p');
+        stepDescription.textContent = steps[step]["Mô tả"];
+        stepContainer.appendChild(stepDescription);
+
+        const stepTime = document.createElement('p');
+        stepTime.textContent = `Thời gian: ${steps[step]["Thời gian"]}`;
+        stepContainer.appendChild(stepTime);
+
+        if (steps[step]["Kiến thức mới"].length > 0) {
+            const stepNewKnowledgeTitle = document.createElement('h6');
+            stepNewKnowledgeTitle.textContent = 'Kiến thức mới:';
+            stepContainer.appendChild(stepNewKnowledgeTitle);
+
+            const stepNewKnowledgeList = document.createElement('ul');
+            steps[step]["Kiến thức mới"].forEach(knowledge => {
+                const listItem = document.createElement('li');
+                listItem.textContent = knowledge;
+                stepNewKnowledgeList.appendChild(listItem);
+            });
+            stepContainer.appendChild(stepNewKnowledgeList);
+        }
+
+        if (steps[step]["Kiến thức cũ"].length > 0) {
+            const stepOldKnowledgeTitle = document.createElement('h6');
+            stepOldKnowledgeTitle.textContent = 'Kiến thức cũ:';
+            stepContainer.appendChild(stepOldKnowledgeTitle);
+
+            const stepOldKnowledgeList = document.createElement('ul');
+            steps[step]["Kiến thức cũ"].forEach(knowledge => {
+                const listItem = document.createElement('li');
+                listItem.textContent = knowledge;
+                stepOldKnowledgeList.appendChild(listItem);
+            });
+            stepContainer.appendChild(stepOldKnowledgeList);
+        }
+
+        createSummary.appendChild(stepContainer);
+    }
+
+    const homeworkTitle = document.createElement('h4');
+    homeworkTitle.textContent = 'Bài tập tự luyện:';
+    createSummary.appendChild(homeworkTitle);
+
+    const homeworkList = document.createElement('ul');
+    for (const homework in lessonData["Bài tập tự luyện"]) {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${homework}: ${lessonData["Bài tập tự luyện"][homework]}`;
+        homeworkList.appendChild(listItem);
+    }
+    createSummary.appendChild(homeworkList);
+}
