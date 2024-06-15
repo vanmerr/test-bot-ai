@@ -130,22 +130,25 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (!createValue) return alert('Please select a create');
         const user = 'vanmerr020403@gmail.com';
         createOption.style.display = 'block';
+        createOption.classList.forEach((item) => createOption.classList.remove(item));
         createOption.textContent = "Creating...........";
         if(createValue === 'summary'){
             const inputs = {
                 "LessonProgress": lessonsSelect.value
             }
             const answer = await services_frontend.createSummary(user, inputs);
-            console.log(answer);
-            createLessonElements(answer.data.outputs.result);
+            const output = answer.data.outputs.result;
+            if (output)  createLessonElements(answer.data.outputs.result);
+            else createOption.textContent = "Summary AI said: 'Try again.'";
         } else if (createValue === "quiz"){
             const inputs = {
                 "lessons": "NGÔN NGỮ LẬP TRÌNH TRONG GAME",
                 "courses": "SNLG"
             }
             const answer = await services_frontend.creatQuiz(user, inputs);
-            console.log(answer);
-            createTable(answer.data.outputs.output);
+            const output = answer.data.outputs.output;
+            if (output)  createTable(answer.data.outputs.output);
+            else createOption.textContent = "Quiz AI said: 'Try again.'";
         }
     
     });
@@ -272,6 +275,7 @@ function createLessonElements(lessonData) {
 
 function createTable(data) {
     const createOption = document.getElementById('createOption');
+    createOption.classList.add('quiz')
     createOption.innerHTML = '';  // Clear any existing content
 
     const table = document.createElement('table');
