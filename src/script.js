@@ -29,7 +29,22 @@ const services_frontend = {
         });
         const answer = await response.json();
         return answer;
-    }
+    },
+    creatQuiz: async (user, inputs) =>{
+        const body = {
+            inputs : inputs,
+            user: user,
+        };
+        const response = await fetch("http://localhost:3000/quiz", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(body)
+        });
+        const answer = await response.json();
+        return answer;
+    },
 
 }
 
@@ -39,7 +54,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const lessonsSelect = document.getElementById('lessons');
     const createSelect = document.getElementById('create');
     const createButton = document.getElementById('createBtn');
-    const createSummary = document.getElementById('createSummary');
+    const createOption = document.getElementById('createOption');
 
 
     // Load courses on page load
@@ -111,26 +126,34 @@ document.addEventListener("DOMContentLoaded", async () => {
     });
 
     createButton.addEventListener('click', async () => {
-        const create = createSelect.value
-        if (!create) return alert('Please select a create');
+        const createValue = createSelect.value
+        if (!createValue) return alert('Please select a create');
         const user = 'vanmerr020403@gmail.com';
-        const inputs = {
-            "LessonProgress": lessonsSelect.value
-        }
-        if(create === 'summary'){
-            createSummary.style.display = 'block';
-            createSummary.textContent = "Creating...........";
+        createOption.style.display = 'block';
+        createOption.textContent = "Creating...........";
+        if(createValue === 'summary'){
+            const inputs = {
+                "LessonProgress": lessonsSelect.value
+            }
             const answer = await services_frontend.createSummary(user, inputs);
             console.log(answer);
             createLessonElements(answer.data.outputs.result);
-        };
+        } else if (createValue === "quiz"){
+            const inputs = {
+                "lessons": "NGÔN NGỮ LẬP TRÌNH TRONG GAME",
+                "courses": "SNLG"
+            }
+            const answer = await services_frontend.creatQuiz(user, inputs);
+            console.log(answer);
+            createTable(answer.data.outputs.output);
+        }
     
     });
 
 });
 
 function createLessonElements(lessonData) {
-    const createSummary = document.getElementById('createSummary');
+    const createSummary = document.getElementById('createOption');
     createSummary.innerHTML = ''; // Clear previous content
 
     // Create elements for each part of the lesson
@@ -244,4 +267,42 @@ function createLessonElements(lessonData) {
         homeworkList.appendChild(listItem);
     }
     createSummary.appendChild(homeworkList);
+}
+
+
+function createTable(data) {
+    const createOption = document.getElementById('createOption');
+    createOption.innerHTML = '';  // Clear any existing content
+
+    const table = document.createElement('table');
+    table.border = 1;
+
+    // Create table header
+    const headers = ["STT", "Question Type", "Phân loại câu hỏi", "Question Text", "Đáp án 1", "Đáp án 2", "Đáp án 3", "Đáp án 4", "Đáp án đúng"];
+    const thead = document.createElement('thead');
+    const headerRow = document.createElement('tr');
+    headers.forEach(header => {
+        const th = document.createElement('th');
+        th.innerText = header;
+        headerRow.appendChild(th);
+    });
+    thead.appendChild(headerRow);
+    table.appendChild(thead);
+
+    // Create table body
+    const tbody = document.createElement('tbody');
+    data.forEach(item => {
+        const row = document.createElement('tr');
+        headers.forEach(header => {
+            const td = document.createElement('td');
+            td.innerText = item[header];
+            row.appendChild(td);
+        });
+        tbody.appendChild(row);
+    });
+    table.appendChild(tbody);
+
+    // Append table to createOption div
+    createOption.appendChild(table);
+    createOption.style.display = 'block';  // Make the div visible
 }

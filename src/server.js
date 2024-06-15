@@ -83,7 +83,18 @@ app.post('/summary', async (req, res) => {
     //Trả về kết quả cho client
     res.send(answer);
   
-  });
+});
+
+app.post('/quiz', async (req, res) => {
+  //Lấy dữ liệu từ client
+  const data = req.body;
+
+  //Kiểm tra user trên firebase và nếu trả kết quả đúng thì gọi đến chat AI
+  const answer = await services.quizService(data.user, data.inputs)
+  //Trả về kết quả cho client
+  res.send(answer);
+
+});
 
 
 app.listen(port, () => {

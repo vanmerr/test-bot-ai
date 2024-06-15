@@ -5,13 +5,20 @@ body {
     background-color: #f0f0f0;
 }
 
-.container {
-    max-width: 500px;
+.container,
+#createOption {
+    max-width: 400px;
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
+}
+
+#createOption{
+    margin-top: 10px;
+    min-width: 500px;
+    max-width: unset;
 }
 
 label {
