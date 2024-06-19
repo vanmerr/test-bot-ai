@@ -74,12 +74,12 @@ app.get('/getLessions', async (req, res) => {
 
   res.send(lessions);
 });
-app.post('/summary', async (req, res) => {
+app.post('/glossary', async (req, res) => {
     //Lấy dữ liệu từ client
     const data = req.body;
 
     //Kiểm tra user trên firebase và nếu trả kết quả đúng thì gọi đến chat AI
-    const answer = await services.summaryService(data.user, data.inputs)
+    const answer = await services.glossaryService(data.user, data.inputs)
     //Trả về kết quả cho client
     res.send(answer);
   
